@@ -1,0 +1,19 @@
+<h1>Listing Creatures</h1>
+<%= link_to 'Add Creature', new_creature_path %>
+
+<table>
+  <tr>
+    <th>Name:</th>
+    <th>Description:</th>
+  </tr>
+
+  <% @creatures.each do |creatures| %>
+    <tr>
+      <td><%= creatures.name %></td>
+      <td><%= creatures.description %></td>
+      <td><%= link_to 'Show', creature_path(creatures) %></td>
+      <td><%= link_to 'Edit', edit_creature_path(creatures) %></td>
+
+    </tr>
+  <% end %>
+</table>
