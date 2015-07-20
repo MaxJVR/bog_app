@@ -13,3 +13,15 @@
  *= require_tree .
  *= require_self
  */
+
+body {
+  background: url(http://images7.alphacoders.com/378/378214.jpg);
+  background-size: cover;
+}
+h1 {
+  text-align: center;
+  color: white;
+}
+#main {
+  text-align: center;
+}

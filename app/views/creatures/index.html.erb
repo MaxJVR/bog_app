@@ -1,19 +1,31 @@
-<h1>Listing Creatures</h1>
-<%= link_to 'Add Creature', new_creature_path %>
+<div class="container">
+  <h1>Listing Creatures</h1>
+  <%= link_to 'Add Creature', new_creature_path, class: "btn btn-success btn-xl" %>
+  <div class="row">
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
 
-<table>
-  <tr>
-    <th>Name:</th>
-    <th>Description:</th>
-  </tr>
+    </div>
+      <div class="table">
+      <table class="table">
+        <tr>
+          <th>Name:</th>
+          <th>Description:</th>
+        </tr>
 
-  <% @creatures.each do |creatures| %>
-    <tr>
-      <td><%= creatures.name %></td>
-      <td><%= creatures.description %></td>
-      <td><%= link_to 'Show', creature_path(creatures) %></td>
-      <td><%= link_to 'Edit', edit_creature_path(creatures) %></td>
+        <% @creatures.each do |creatures| %>
+          <tr>
+            <td><%= creatures.name %></td>
+            <td><%= creatures.description %></td>
+            <td><%= link_to 'Show', creature_path(creatures), class: 'btn btn-primary btn-xl' %></td>
+            <td><%= link_to 'Edit', edit_creature_path(creatures), class: 'btn btn-warning btn-xl' %></td>
+            <td><%= link_to 'Destroy', creature_path(creatures),
+                    method: :delete,
+                    data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xl' %></td>
 
-    </tr>
-  <% end %>
-</table>
+          </tr>
+        <% end %>
+      </table>
+      </div>
+    </div>
+  </div>
+</div>

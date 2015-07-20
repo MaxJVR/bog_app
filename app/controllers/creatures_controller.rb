@@ -17,7 +17,7 @@ class CreaturesController < ApplicationController
   end
 
   def create
-  @creatures = Creature.new(creature_params)
+  @creatures = Creature.new(creatures_params)
 
   @creatures.save
   redirect_to @creatures
@@ -32,13 +32,18 @@ class CreaturesController < ApplicationController
   def update
     @creatures = Creature.find(params[:id])
 
-    if @creatures.update(creature_params)
+    if @creatures.update(creatures_params)
       redirect_to @creatures
     else
       render 'edit'
     end
  end
+ def destroy
+  @creatures = Creature.find(params[:id])
+  @creatures.destroy
 
+  redirect_to creatures_path
+ end
   private
   def creatures_params
     params.require(:creatures).permit(:name, :description)
