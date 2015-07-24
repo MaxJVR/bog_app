@@ -1,52 +1,64 @@
 class CreaturesController < ApplicationController
-
   def index
     @creatures = Creature.all
   end
 
-  def show
-    @creatures = Creature.find(params[:id])
-  end
-
   def new
-    @creatures = Creature.new
+    @creature = Creature.new
+    @tags = Tag.all
   end
 
-  def edit
-     @creatures = Creature.find(params[:id])
+  def show
+    @creature = Creature.find(params[:id])
+    @tags = @creature.tags
   end
 
   def create
-  @creatures = Creature.new(creatures_params)
+    c = Creature.create(creature_params)
+    update_tags c
 
-  @creatures.save
-  redirect_to @creatures
-
-    if @creatures.save
-      redirect_to @creatures
-    else
-      render 'new'
-    end
+    redirect_to creatures_path
   end
 
   def update
-    @creatures = Creature.find(params[:id])
+    c = Creature.find params[:id]
+    c.update creature_params
 
-    if @creatures.update(creatures_params)
-      redirect_to @creatures
-    else
-      render 'edit'
-    end
- end
- def destroy
-  @creatures = Creature.find(params[:id])
-  @creatures.destroy
+    c.tags.clear
+    update_tags c
 
-  redirect_to creatures_path
- end
-  private
-  def creatures_params
-    params.require(:creatures).permit(:name, :description)
+    redirect_to c
   end
 
+  def edit
+    @creature = Creature.find params[:id]
+    @tags = Tag.all
+  end
+
+  def destroy
+    Creature.find(params[:id]).delete
+    redirect_to creatures_path
+  end
+
+  private
+
+  def update_tags creature
+    creature_tags = params[:creature][:tag_ids]
+    creature_tags.each do |id|
+      creature.tags << Tag.find(id) unless id.blank?
+    end
+  end
+
+  def creature_params
+    params.require(:creature).permit(:name, :description)
+  end
 end
+
+
+
+
+
+
+
+
+

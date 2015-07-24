@@ -1,31 +1,23 @@
-<div class="container">
-  <h1>Listing Creatures</h1>
-  <%= link_to 'Add Creature', new_creature_path, class: "btn btn-success btn-xl" %>
-  <div class="row">
-    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+<h2>Creature List</h2>
 
-    </div>
-      <div class="table">
-      <table class="table">
-        <tr>
-          <th>Name:</th>
-          <th>Description:</th>
-        </tr>
-
-        <% @creatures.each do |creatures| %>
-          <tr>
-            <td><%= creatures.name %></td>
-            <td><%= creatures.description %></td>
-            <td><%= link_to 'Show', creature_path(creatures), class: 'btn btn-primary btn-xl' %></td>
-            <td><%= link_to 'Edit', edit_creature_path(creatures), class: 'btn btn-warning btn-xl' %></td>
-            <td><%= link_to 'Destroy', creature_path(creatures),
-                    method: :delete,
-                    data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xl' %></td>
-
-          </tr>
-        <% end %>
-      </table>
-      </div>
-    </div>
+<%= link_to "&larr; Back".html_safe, root_path, class: "btn btn-primary margin-bottom" %>
+<%= link_to "New Tag", new_tag_path, class: "btn btn-danger pull-right margin-bottom" %>
+<%= link_to "New Creature", new_creature_path, class: "btn btn-success pull-right margin-bottom" %>
+<% @creatures.each do |creature| %>
+<div class="panel panel-primary">
+  <div class="panel-heading">
+  <h3><%= creature.name %></h3>
+  </div>
+   <div class="panel-body">
+  <h4><%= creature.description %></h4>
+  <%= link_to "", creature, method: :delete, class: 'btn btn-danger btn-sm glyphicon glyphicon-trash pull-right margin-left', data: {confirm: "Are you sure?"} %>
+  <%= link_to "", edit_creature_path(creature), class: 'btn btn-primary btn-sm glyphicon glyphicon-pencil pull-right margin-left' %>
+  <h5><%= link_to "Permalink", creature %></h5>
+  <h6>
+  <% creature.tags.each do |tag| %>
+    <%= link_to "##{tag.name}", tag %>
+  <% end %>
+  </h6>
   </div>
 </div>
+<% end %>

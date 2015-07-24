@@ -1,6 +1,3 @@
 class Creature < ActiveRecord::Base
-
-validates :name, presence: true,
-                    length: { minimum: 1 }
-
+  has_and_belongs_to_many :tags
 end
